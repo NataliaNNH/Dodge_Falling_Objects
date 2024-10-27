@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +12,11 @@ public class GameManager : MonoBehaviour
 
     bool gameStarted = false;
 
+    public GameObject clickText;
+    public TextMeshProUGUI scoreT;
+
+    int scoreC = 0;
+
     // Update is called once per frame
     void Update()
     {
@@ -18,6 +24,8 @@ public class GameManager : MonoBehaviour
         {
             StartSpawn(); //zaczynamy spawnowac
             gameStarted = true;
+            clickText.SetActive(false);
+
         } 
     }
 
@@ -29,7 +37,10 @@ public class GameManager : MonoBehaviour
     {
         Vector3 spawnPos = spawnPoint.position; // odnosimy sie do naszego Spawn pointu
         spawnPos.x = Random.Range(-maxX, maxX);
-        Instantiate(Falling_Object, spawnPos, Quaternion.identity); 
+        Instantiate(Falling_Object, spawnPos, Quaternion.identity);
+
+        scoreC++;
+        scoreT.text = scoreC.ToString();
         
     }
 
