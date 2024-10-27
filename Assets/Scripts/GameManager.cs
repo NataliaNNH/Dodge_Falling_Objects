@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         {
             StartSpawn(); //zaczynamy spawnowac
             gameStarted = true;
+       
             clickText.SetActive(false);
 
         } 
