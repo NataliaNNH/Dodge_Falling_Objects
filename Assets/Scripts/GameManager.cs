@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject Falling_Object;
+    public List<GameObject> fallingObjects; 
     public float maxX;
     public Transform spawnPoint;
     public float spawnRate; // jak szybko bed¹ siê spawnowa³y spadaj¹ce obiekty
@@ -38,7 +38,11 @@ public class GameManager : MonoBehaviour
     {
         Vector3 spawnPos = spawnPoint.position; // odnosimy sie do naszego Spawn pointu
         spawnPos.x = Random.Range(-maxX, maxX);
-        Instantiate(Falling_Object, spawnPos, Quaternion.identity);
+
+        int randomIndex = Random.Range(0, fallingObjects.Count);
+        GameObject Random_Falling_Object = fallingObjects[randomIndex];
+
+        Instantiate(Random_Falling_Object, spawnPos, Quaternion.identity);
 
         scoreC++;
         scoreT.text = scoreC.ToString();
