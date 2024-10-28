@@ -24,8 +24,16 @@ public class GameManager : MonoBehaviour
         {
             StartSpawn(); //zaczynamy spawnowac
             gameStarted = true;
-       
-            clickText.SetActive(false);
+
+            FadeAway fadeScript = clickText.GetComponent<FadeAway>();
+            if (fadeScript != null)
+            {
+                fadeScript.StartFade();
+            }
+            else
+            {
+                clickText.SetActive(false);
+            }
 
         } 
     }

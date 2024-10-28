@@ -6,11 +6,13 @@ public class Player : MonoBehaviour
 {
 
     public float moveSpeed; // predkosc playera
-        Rigidbody2D rigb;
+    Rigidbody2D rigb;
+    private AudioSource hitSound;
     // Start is called before the first frame update
     void Start()
     {
         rigb = GetComponent<Rigidbody2D>(); // namy dostep do rigidbod
+        hitSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -39,7 +41,27 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Falling_Object")
         {
-            SceneManager.LoadScene(0);
+            StartCoroutine(HitSoundAndRestart());
         }
+    }
+    private IEnumerator HitSoundAndRestart()
+    {
+  
+        Time.timeScale = 0;
+
+        // Play the collision sound
+        if (hitSound != null && !hitSound.isPlaying)
+        {
+            hitSound.Play();
+        }
+
+        // Wait for the sound to finish playing
+        yield return new WaitForSecondsRealtime(hitSound.clip.length);
+
+        // Resume the game
+        Time.timeScale = 1;
+
+        // Restart the scene
+        SceneManager.LoadScene(0);
     }
 }
